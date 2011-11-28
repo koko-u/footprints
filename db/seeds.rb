@@ -64,7 +64,7 @@ Friend.create(name: 'まつもと',
               longitude: 135.7555968)
 Friend.create(name: 'たきぐち',
               prefecture: '大阪府',
-              twitter: 'spring_aki',
+              twitter: 'atakig',
               latitude: 34.6862971,
               longitude: 135.5196609)
 Friend.create(name: 'よしだ',

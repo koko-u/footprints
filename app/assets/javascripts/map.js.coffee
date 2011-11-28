@@ -44,7 +44,12 @@ event_list = (events) ->
   result += "  </ul>\n</div>\n"
 
 friend_list = (friends) ->
-  result = "<div>\n  <ul>\n"
+  result = "<div>\n  <table>\n"
   for friend in friends
-    result += "    <li><a href=\"/friends/#{friend.id}\">#{friend.name}</a></li>\n"
-  result += "  </ul>\n</div>\n"
+    result += """
+                <tr>
+                  <td><img src=\"#{friend.twitter_icon_url}\" width=\"32\" height=\"32\" border="0" hspace="5"></td>
+                  <td><a href=\"/friends/#{friend.id}\">#{friend.name}</a></td>
+                </tr>
+              """
+  result += "  </table>\n</div>\n"
