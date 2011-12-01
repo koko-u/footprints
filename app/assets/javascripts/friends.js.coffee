@@ -1,11 +1,20 @@
 jQuery ($) ->
-  insert_list = (content, friend) ->
+  li_elements = (content) ->
     list_regex = /<li>.*<\/li>/g
+    if list_regex.test(content)
+      "#{element}" for element in content.match(list_regex)
+    else
+      []
+
+  li = (friend) ->
+    "<li><a href=\"/friends/#{friend.id}\">#{friend.name}</a></li>"
+
+  insert_list = (content, friend) ->
     """
     <div>
       <ul>
-      #{("#{element}" for element in content.match(list_regex)).join("\n")}
-      <li><a href=\"/friends/#{friend.id}\">#{friend.name}</a></li>
+        #{li_elements(content).join("\n")}
+        #{li(friend)}
       </ul>
     </div>
     """
@@ -28,17 +37,10 @@ jQuery ($) ->
           marker = new google.maps.Marker({
             position: latlng
             map: document.map,
-            title: friend.name,
             icon: "http://dl.dropbox.com/u/4039576/footprint_marker2.gif"
           })
           infowin = new google.maps.InfoWindow({
-            content: """
-                     <div>
-                       <ul>
-                         <li><a href=\"/friends/#{friend.id}\">#{friend.name}</a></li>
-                       </ul>
-                     </div>
-                     """
+            content: insert_list("", friend)
             position: marker.getPosition()
           })
           google.maps.event.addListener(marker, 'click', ->

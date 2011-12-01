@@ -1,11 +1,20 @@
 jQuery ($) ->
-  insert_list = (content, event) ->
+  li_elements = (content) ->
     list_regex = /<li>.*<\/li>/g
+    if list_regex.test(content)
+      "#{element}" for element in content.match(list_regex)
+    else
+      []
+
+  li = (event) ->
+    "<li><a href=\"/events/#{event.id}\">#{event.name}</a></li>"
+
+  insert_list = (content, event) ->
     """
     <div>
       <ul>
-      #{("#{element}" for element in content.match(list_regex)).join("\n")}
-      <li><a href=\"/events/#{event.id}\">#{event.name}</a></li>
+        #{li_elements(content).join("\n")}
+        #{li(event)}
       </ul>
     </div>
     """
@@ -31,13 +40,7 @@ jQuery ($) ->
             icon: "http://dl.dropbox.com/u/4039576/footprint_marker.gif"
           })
           infowin = new google.maps.InfoWindow({
-            content: """
-                     <div>
-                       <ul>
-                         <li><a href=\"/events/#{event.id}\">#{event.name}</a></li>
-                       </ul>
-                     </div>
-                     """
+            content: insert_list("", event)
             position: marker.getPosition()
           })
           google.maps.event.addListener(marker, 'click', ->
