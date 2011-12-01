@@ -16,7 +16,7 @@ jQuery ($) ->
     </tr>
     """
 
-  friends_list (friends) ->
+  friends_list = (friends) ->
     """
     <div>
       <table>
