@@ -67,7 +67,7 @@ class FriendsController < ApplicationController
     @friend.destroy
 
     respond_to do |format|
-      format.html { redirect_to friends_url }
+      format.html { redirect_to events_url }
       format.json { head :ok }
     end
   end
